@@ -8,6 +8,7 @@
 - Prometheus + Grafana
 - Docker, Docker Hub, GitHub Actions
 
+
 ## 외부 API
 | 용도 | 엔드포인트                                                                                                                                                                                      | 응답 |
 | --- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
@@ -30,33 +31,24 @@
   -  GitHub Actions 기반 자동 빌드 & Docker Hub 이미지 푸시
 
 ## 실행 방법
-### 방법 1: Docker Hub에서 이미지 다운로드 후 실행
+### Docker Hub에서 이미지 다운로드 -> Docker Compose로 전체 서비스 실행
 ```
-docker pull seunzu/holidaykeeper-service
-docker run -d -p 8080:8080 seunzu/holidaykeeper-service
-```
-
-### 방법 2: 직접 Docker Image 빌드 후 실행
-```
-# Docker Image 빌드
-docker build . --file ./Docker/Dockerfile --tag holidaykeeper-service:latest
-
-# Docker Image 실행
-docker run -d -p 8080:8080 holidaykeeper-service:latest
+docker pull seungjusuh/holidaykeeper-service
+docker-compose up -d
 ```
 
-## 접속 방법
-### Swagger API
-- http://localhost:8080/swagger-ui/index.html
+- Swagger API
+  - http://localhost:8080/swagger-ui/index.html
 
-### Grafana
-- http://localhost:3000
-- User Name: `admin`
-- Password: `admin`
+- Grafana
+  - http://localhost:3000
+  - User Name: `admin`
+  - Password: `admin`
 
-### H2 Database
-- http://localhost:8080/h2-console
-- JDBC URL: `jdbc:h2:mem:holiday`
-- User Name: `test`
-- Password: `1234`
+- H2 Database
+  - http://localhost:8080/h2-console
+  - JDBC URL: `jdbc:h2:mem:holiday`
+  - User Name: `test`
+  - Password: `1234`
+
 
