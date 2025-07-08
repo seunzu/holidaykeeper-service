@@ -52,7 +52,7 @@ docker run -d -p 8080:8080 seungjusuh/holidaykeeper-service
 - Grafana
   - http://localhost:3000
   - User Name: `admin`
-  - Password: `admin`
+  - Password: `1234`
 
 - H2 Database
   - http://localhost:8080/h2-console
