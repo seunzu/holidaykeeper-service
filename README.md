@@ -60,4 +60,5 @@ docker run -d -p 8080:8080 seungjusuh/holidaykeeper-service
   - User Name: `test`
   - Password: `1234`
 
+![스크린샷 2025-07-08 오후 3 18 11](https://github.com/user-attachments/assets/26f8564c-3fcc-40f7-9f18-9bbdef0ac0e5)
 
