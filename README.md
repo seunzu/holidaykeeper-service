@@ -30,11 +30,20 @@
 - CI/CD 파이프라인
   -  GitHub Actions 기반 자동 빌드 & Docker Hub 이미지 푸시
 
-## 실행 방법
-### Docker Hub에서 이미지 다운로드 -> Docker Compose로 전체 서비스 실행
+## 실행 방법 (로컬 개발 환경)
+**반드시 아래 2개의 파일 필요**
+- `docker-compose.yml` ([컨테이너 조합 정의](https://github.com/seunzu/holidaykeeper-service/blob/main/docker-compose.yml))
+- `Docker/prometheus.yml` ([Promethes 설정](https://github.com/seunzu/holidaykeeper-service/blob/main/Docker/prometheus.yml))
+
+```
+# 전체 서비스 실행
+docker-compose up -d
+```
+
+> (참고) Docker Hub에서 holidaykeeper-service 이미지만 따로 실행 (단독 컨테이너 실행)
 ```
 docker pull seungjusuh/holidaykeeper-service
-docker-compose up -d
+docker run -d -p 8080:8080 seungjusuh/holidaykeeper-service
 ```
 
 - Swagger API
