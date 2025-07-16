@@ -47,16 +47,9 @@ public class HolidayController {
     // 검색
     @GetMapping("/v1/holidays")
     public ApiResponse<PageResponse<HolidayResponse>> searchHolidays(
-            @RequestParam(value = "countryCode", required = false) String countryCode,
-            @RequestParam(value = "year", required = false) Integer year,
-            @RequestParam(value = "fromDate", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
-            @RequestParam(value = "toDate", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
-            @RequestParam(value = "type", required = false) String type,
+            @ModelAttribute HolidaySearchCondition condition,
             Pageable pageable
     ) {
-        HolidaySearchCondition condition = new HolidaySearchCondition(countryCode, year, fromDate, toDate, type);
         Page<HolidayResponse> page = holidayService.searchHolidays(condition, pageable)
                 .map(HolidayResponse::from);
         return ApiResponse.ok(PageResponse.from(page));
