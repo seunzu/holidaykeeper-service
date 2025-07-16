@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 public interface HolidayRepository extends JpaRepository<Holiday, Long>, HolidayCustomRepository {
 
     @Modifying
-    @Transactional
     @Query("DELETE FROM Holiday h WHERE h.countryCode = :countryCode AND h.year = :year")
     void deleteByCountryCodeAndYear(@Param("countryCode") String countryCode, @Param("year") int year);
 

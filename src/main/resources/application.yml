@@ -1,10 +1,13 @@
 server:
   port: 8080
   address: 0.0.0.0
+#  shutdown: graceful
 
 spring:
   application:
     name: holidaykeeper
+#  lifecycle:
+#    timeout-per-shutdown-phase: 30s
 
   datasource:
     driver-class-name: org.h2.Driver
@@ -35,3 +38,23 @@ management:
   metrics:
     tags:
       application: holidaykeeper
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      holidayScheduler:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+  retry:
+    instances:
+      holidayScheduler:
+        maxAttempts: 3
+        waitDuration: 2s
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
