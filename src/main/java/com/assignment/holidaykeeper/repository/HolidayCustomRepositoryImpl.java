@@ -74,8 +74,6 @@ public class HolidayCustomRepositoryImpl implements HolidayCustomRepository {
                 .where(builder)
                 .fetchOne();
 
-        long total = (count != null) ? count : 0L;
-
-        return new PageImpl<>(content, pageable, total);
+        return new PageImpl<>(content, pageable, (count != null) ? count : 0L);
     }
 }

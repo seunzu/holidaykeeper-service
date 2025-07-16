@@ -10,8 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -55,12 +59,20 @@ public class HolidayServiceImpl implements HolidayService {
 
     @Override
     public void loadHolidaysOnly() {
-        batchProcessor.process(this::loadHolidays);
+        Set<Integer> targetYears = IntStream.rangeClosed(2020, 2025)
+                .boxed()
+                .collect(Collectors.toSet());
+
+        batchProcessor.processForYears(targetYears, this::loadHolidays);
     }
 
     @Override
     public void syncHolidaysOnly() {
-        batchProcessor.process(this::refreshHolidays);
+        int currentYear = Year.now().getValue();
+        int previousYear = currentYear - 1;
+
+        Set<Integer> yearsToSync = Set.of(previousYear, currentYear);
+        batchProcessor.processForYears(yearsToSync, this::refreshHolidays);
     }
 
     @Override

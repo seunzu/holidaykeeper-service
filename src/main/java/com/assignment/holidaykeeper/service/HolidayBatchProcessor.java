@@ -7,6 +7,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Component
@@ -16,12 +17,12 @@ public class HolidayBatchProcessor {
     private final CountryRepository countryRepository;
     private final TaskExecutor taskExecutor;
 
-    public void process(HolidayProcessor processor) {
+    public void processForYears(Set<Integer> targetYears, HolidayProcessor processor) {
         List<Country> countries = countryRepository.findAll();
 
         List<CompletableFuture<Void>> futures = countries.stream()
                 .map(country -> CompletableFuture.runAsync(() -> {
-                    for (int year = 2020; year <= 2025; year++) {
+                    for (Integer year : targetYears) {
                         processor.process(country.getCountryCode(), year);
                     }
                 }, taskExecutor))
