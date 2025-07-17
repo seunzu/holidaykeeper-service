@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.Year;
 import java.util.Arrays;
 import java.util.List;
@@ -90,5 +91,11 @@ public class HolidayServiceImpl implements HolidayService {
     @Override
     public Page<Holiday> searchHolidays(HolidaySearchCondition condition, Pageable pageable) {
         return holidayRepository.searchHolidays(condition, pageable);
+    }
+
+    @Override
+    public Boolean isTodayHoliday(String countryCode) {
+        List<Holiday> holidays = holidayRepository.findByCountryCodeAndDate(countryCode, LocalDate.now());
+        return holidays != null && !holidays.isEmpty();
     }
 }

@@ -54,4 +54,11 @@ public class HolidayController {
                 .map(HolidayResponse::from);
         return ApiResponse.ok(PageResponse.from(page));
     }
+
+    // 오늘이 공휴일??
+    @GetMapping("/v1/holidays/isTodayHoliday/{countryCode}")
+    public ApiResponse<Boolean> isTodayHoliday(@PathVariable("countryCode") String countryCode) {
+        Boolean todayHoliday = holidayService.isTodayHoliday(countryCode);
+        return ApiResponse.ok(todayHoliday);
+    }
 }
