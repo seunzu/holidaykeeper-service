@@ -14,4 +14,5 @@ public interface HolidayService {
     void loadAllData();
     void deleteHolidays(String countryCode, int year);
     Page<Holiday> searchHolidays(HolidaySearchCondition condition, Pageable pageable);
+    Boolean isTodayHoliday(String countryCode);
 }
